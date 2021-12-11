@@ -16,6 +16,11 @@
     <div class="container">
         <div class="row justify-content-center mt-5">
             <div class="col-md-6 col-sm-12">
+                @if(session()->has('suss'))
+                <div class="alert alert-success">
+                    {{ session()->get('suss') }}
+                </div>
+                @else
                 @if($userForm->public)
                 <form class="mb-5" action="{{ route('write_student', $userForm->hash_code) }}" method="POST">
                     @if ($errors->any())
@@ -60,13 +65,11 @@
                         <button type="submit" class="btn btn-primary">Hoàn thành</button>
                     </fieldset>
                 </form>
-
-
-
                 @else
                     <div class="alert alert-danger">
                         Phiếu thu thập đã tạm ngừng !
                     </div>
+                @endif
                 @endif
             </div>
         </div>

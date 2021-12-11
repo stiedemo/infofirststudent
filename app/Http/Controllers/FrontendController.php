@@ -39,6 +39,6 @@ class FrontendController extends Controller
                 $userStudentItemForm->save();
             }
         }
-        return redirect()->back();
+        return redirect()->back()->with('suss', 'Câu trả lời đã được lưu lại. Cảm ơn bạn đã tham gia bạn đã hoàn thành khảo sát.');
     }
 }
