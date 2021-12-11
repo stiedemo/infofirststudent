@@ -6,6 +6,7 @@
     <div class="row">
         <div class="col-md-8"><h1>Chi tiết biểu mẫu: {{ $userForm->name }}</h1></div>
         <div class="col-md-4 text-right">
+            <a href="{{ route('download_student_excel', [$userForm->id]) }}" class="btn btn-info">Excel <i class="fa fa-file"></i></a>
             @if($userForm->public == 0)
                 <a href="{{ route('switch_status', [$userForm->id, $userForm->hash_code]) }}" class="btn btn-primary">Công khai</a>
             @else

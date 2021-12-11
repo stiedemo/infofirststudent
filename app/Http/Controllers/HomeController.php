@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserFormExport;
 use Illuminate\Http\Request;
 use App\UserForm;
 use App\UserStudentForm;
@@ -9,6 +10,7 @@ use App\UserStudentItemForm;
 use Auth;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
+use Maatwebsite\Excel\Facades\Excel;
 
 class HomeController extends Controller
 {
@@ -116,7 +118,7 @@ class HomeController extends Controller
 
     public function downloadWordItem($id)
     {
-        $userStudentForm = UserStudentForm::findOrFail($id);
+        $userStudentForm = UserStudentForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
         $text = $section->addText("THU THẬP THÔNG TIN HỌC SINH ĐẦU KHÓA HỌC", array('name'=>'Times New Roman','size' => 12,'bold' => true,  'align' => 'center'), array('align' => 'center'));
@@ -124,7 +126,14 @@ class HomeController extends Controller
             $text = $section->addText($userStudentItemForm->UserConfigForm->name . ": " . $userStudentItemForm->value, array('name'=>'Times New Roman','size' => 12));
         }
         $objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save('Appdividend.docx');
-        return response()->download(public_path('Appdividend.docx'));
+        $nameFile = "Thông tin nhập số " . $id;
+        $objWriter->save($nameFile. '.docx');
+        return response()->download(public_path($nameFile. '.docx'));
+    }
+
+    public function downloadExcel($id)
+    {
+        $userForm = UserForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        return Excel::download(new UserFormExport($userForm->id), $userForm->name . '.xlsx');
     }
 }
