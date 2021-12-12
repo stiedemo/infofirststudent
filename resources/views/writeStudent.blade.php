@@ -126,6 +126,28 @@
             })
             @endif
         @endforeach
+
+
+        @foreach ($targetObj as $targetObjItem)
+            @if($targetObjItem['obj']->type == 'radio')
+                @foreach ($targetObjItem['sub'] as $subItem)
+                    if($('input[type=radio][name=studentinput__{{ $targetObjItem['obj']->id }}]').val() === "{{ $subItem->target_value }}") {
+                        $("#boxInputStudent__{{$subItem->id}}").removeClass('d-none');
+                    } else {
+                        $("#boxInputStudent__{{$subItem->id}}").addClass('d-none');
+                        @if($subItem->type == 'radio')
+                            $("input[type=radio][name=studentinput__{{ $subItem->id }}]").attr("checked", false);
+                        @else
+                            $("#inputStudent{{ $subItem->id }}").val("");
+                        @endif
+                    }
+                @endforeach
+            @else
+            $("#inputStudent{{ $targetObjItem['obj']->id }}").change(() => {
+
+            })
+            @endif
+        @endforeach
     </script>
   </body>
 </html>
