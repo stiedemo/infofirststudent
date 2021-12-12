@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'HomeController@redirectHome');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/create', 'HomeController@create')->name('create');
+Route::post('/create', 'HomeController@actionCreate')->name('create');
+Route::post('/edit-item/{id}', 'HomeController@actionEditItem')->name('edit_item');
+Route::get('/create-item/{id}', 'HomeController@createEditItem')->name('create_item');
 Route::get('/download_student_item/{id}', 'HomeController@downloadWordItem')->name('download_student_item');
 Route::get('/download_student/{id}', 'HomeController@downloadExcel')->name('download_student_excel');
 Route::get('/detail/{hash_code}-{id}', 'HomeController@detail')->name('detail');

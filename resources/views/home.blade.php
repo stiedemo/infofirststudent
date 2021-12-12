@@ -5,7 +5,12 @@
 @section('plugins.DatatablesPlugin', true)
 
 @section('content_header')
-    <h1>Trang Chủ - Phần mềm thu thập thông tin học sinh đầu khoá</h1>
+    <div class="row">
+        <div class="col-md-8"><h1>Trang Chủ - Phần mềm thu thập thông tin học sinh đầu khoá</h1></div>
+        <div class="col-md-4 text-right">
+            <a href="{{ route('create') }}" class="btn btn-info"><i class="fa fa-plus"></i> Tạo mới biểu mẫu</a>
+        </div>
+    </div>
 @stop
 
 @section('content')

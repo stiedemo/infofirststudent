@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exports\UserFormExport;
+use App\UserConfigForm;
 use Illuminate\Http\Request;
 use App\UserForm;
 use App\UserStudentForm;
@@ -11,6 +12,7 @@ use Auth;
 use PhpOffice\PhpWord\PhpWord;
 use PhpOffice\PhpWord\IOFactory;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
@@ -135,5 +137,57 @@ class HomeController extends Controller
     {
         $userForm = UserForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
         return Excel::download(new UserFormExport($userForm->id), $userForm->name . '.xlsx');
+    }
+
+    public function create()
+    {
+        return view('create');
+    }
+
+    public function actionCreate(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $userForm = new UserForm;
+        $userForm->name = $request->name;
+        $userForm->user_id = Auth::user()->id;
+        $userForm->hash_code = Str::random(5);
+        $userForm->public = false;
+        $userForm->save();
+        return redirect()->route('edit', [$userForm->id, $userForm->hash_code])->with('suss', 'Tạo thành công biểu mẫu');
+    }
+
+    public function actionEditItem($id, Request $request)
+    {
+        $request->validate([
+            'name' => 'required',
+            'type' => 'required'
+        ]);
+        $userFormItem = UserConfigForm::findOrFail($id);
+        $userFormItem->name = $request->name;
+        $userFormItem->type = $request->type;
+        $userFormItem->config_content = $request->config_content;
+        if($request->required && $request->required == "Có") {
+            $userFormItem->required = true;
+        } else {
+            $userFormItem->required = false;
+        }
+        $userFormItem->save();
+        return redirect()->route('edit', [$userFormItem->UserForm->id, $userFormItem->UserForm->hash_code])->with('suss', 'Chỉnh sửa item thành công');
+    }
+
+    public function createEditItem($id)
+    {
+        $userForm = UserForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userFormItem = new UserConfigForm;
+        $userFormItem->name = "Trường dữ liệu";
+        $userFormItem->type = "text";
+        $userFormItem->user_id = Auth::user()->id;
+        $userFormItem->user_form_id = $id;
+        $userFormItem->order = 1;
+        $userFormItem->required = false;
+        $userFormItem->save();
+        return redirect()->route('edit', [$userForm->id, $userForm->hash_code])->with('suss', 'Tạo mới item thành công');
     }
 }
