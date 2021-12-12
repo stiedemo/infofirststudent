@@ -64,7 +64,7 @@ class HomeController extends Controller
 
     public function detail($id, $hash_code)
     {
-        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->firstOrFail();
         $tableUserStudentHeader = ["STT"];
         $tableUserStudentHeaderId = [];
         foreach ($userForm->UserConfigForms as $index => $value) {
@@ -95,7 +95,7 @@ class HomeController extends Controller
 
     public function switchStatus($id, $hash_code)
     {
-        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->firstOrFail();
         $userForm->public = !$userForm->public;
         $userForm->save();
         return redirect()->route('detail', [$userForm->id, $userForm->hash_code])->with('suss', 'Chuyển đổi trạng thái thành công');
@@ -103,7 +103,7 @@ class HomeController extends Controller
 
     public function edit($id, $hash_code)
     {
-        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->firstOrFail();
         return view('editUserForm', compact('userForm'));
     }
 
@@ -112,7 +112,7 @@ class HomeController extends Controller
         $request->validate([
             'name' => 'required'
         ]);
-        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->firstOrFail();
         $userForm->name = $request->name;
         $userForm->save();
         return redirect()->back()->with('suss', 'Sửa biểu mẫu thành công');
@@ -135,7 +135,7 @@ class HomeController extends Controller
 
     public function downloadExcel($id)
     {
-        $userForm = UserForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userForm = UserForm::where('id', $id)->firstOrFail();
         return Excel::download(new UserFormExport($userForm->id), $userForm->name . '.xlsx');
     }
 
@@ -179,7 +179,7 @@ class HomeController extends Controller
 
     public function createEditItem($id)
     {
-        $userForm = UserForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userForm = UserForm::where('id', $id)->firstOrFail();
         $userFormItem = new UserConfigForm;
         $userFormItem->name = "Trường dữ liệu";
         $userFormItem->type = "text";
