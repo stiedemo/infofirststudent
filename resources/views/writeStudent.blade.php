@@ -127,7 +127,7 @@
             @endif
         @endforeach
 
-
+        @if ($errors->any())
         @foreach ($targetObj as $targetObjItem)
             @if($targetObjItem['obj']->type == 'radio')
                 @foreach ($targetObjItem['sub'] as $subItem)
@@ -148,6 +148,7 @@
             })
             @endif
         @endforeach
+        @endif
     </script>
   </body>
 </html>
