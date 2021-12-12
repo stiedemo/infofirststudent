@@ -120,7 +120,7 @@ class HomeController extends Controller
 
     public function downloadWordItem($id)
     {
-        $userStudentForm = UserStudentForm::where('id', $id)->where('user_id', Auth::user()->id)->firstOrFail();
+        $userStudentForm = UserStudentForm::where('id', $id)->firstOrFail();
         $phpWord = new PhpWord();
         $section = $phpWord->addSection();
         $text = $section->addText("THU THẬP THÔNG TIN HỌC SINH ĐẦU KHÓA HỌC", array('name'=>'Times New Roman','size' => 12,'bold' => true,  'align' => 'center'), array('align' => 'center'));
