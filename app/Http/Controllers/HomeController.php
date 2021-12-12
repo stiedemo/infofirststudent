@@ -35,7 +35,7 @@ class HomeController extends Controller
     {
         $headsUserForms = ["STT", "Tên mẫu thu thập", "Trạng thái", "Số lượng tham gia", "Ngày tạo", "Hành động"];
         $userForms = [];
-        foreach (Auth::user()->UserForms as $index => $userForm) {
+        foreach (UserForm::all() as $index => $userForm) {
             $btnEdit = '<a href="'. route('edit', [$userForm->id, $userForm->hash_code]) .'" class="btn btn-xs btn-default text-primary mx-1 shadow" title="Edit">
                             <i class="fa fa-lg fa-fw fa-pen"></i>
                         </a>';
