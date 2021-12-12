@@ -106,6 +106,7 @@ class HomeController extends Controller
 
     public function edit($id, $hash_code)
     {
+        if(Auth::user()->id !== 1) return redirect()->route('home');
         $userForm = UserForm::where('id', $id)->where('hash_code', $hash_code)->firstOrFail();
         return view('editUserForm', compact('userForm'));
     }
