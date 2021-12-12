@@ -231,20 +231,34 @@ class RegisterController extends Controller
         $formConfig = new UserConfigForm;
         $formConfig->user_id = $user->id;
         $formConfig->user_form_id = $form->id;
-        $formConfig->name = "Đã từng tham gia thi HSG huyện môn (nếu có)";
-        $formConfig->type = "text";
-        $formConfig->required = false;
+        $formConfig->name = "Đã từng tham gia thi HSG";
+        $formConfig->config_content = json_encode(["Có", "Không"]);
+        $formConfig->type = "radio";
+        $formConfig->required = true;
         $formConfig->order = 17;
         $formConfig->save();
 
         $formConfig = new UserConfigForm;
         $formConfig->user_id = $user->id;
         $formConfig->user_form_id = $form->id;
-        $formConfig->name = "Kết quả tham gia thi HSG huyện môn (nếu có)";
+        $formConfig->name = "Tham gia thi HSG huyện môn";
+        $formConfig->type = "text";
+        $formConfig->required = false;
+        $formConfig->order = 18;
+        $formConfig->target = 17;
+        $formConfig->target_value = "Có";
+        $formConfig->save();
+
+        $formConfig = new UserConfigForm;
+        $formConfig->user_id = $user->id;
+        $formConfig->user_form_id = $form->id;
+        $formConfig->name = "Kết quả tham gia thi HSG huyện";
         $formConfig->type = "radio";
         $formConfig->required = false;
         $formConfig->config_content = json_encode(["Đậu", "Trượt"]);
         $formConfig->order = 18;
+        $formConfig->target = 17;
+        $formConfig->target_value = "Có";
         $formConfig->save();
 
         $formConfig = new UserConfigForm;
