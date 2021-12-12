@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Tạo mới biểu mẫu - Phần mềm thu thập thông tin học sinh đầu khoá')
+@section('title', 'Tạo mới biểu mẫu - Phần Mềm Thu Thập Thông Tin Trong Trường Học')
 
 @section('content_header')
     <div class="row">

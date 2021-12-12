@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', $userForm->name . ' - Phần mềm thu thập thông tin học sinh đầu khoá')
+@section('title', $userForm->name . ' - Phần Mềm Thu Thập Thông Tin Trong Trường Học')
 
 @section('content_header')
     <div class="row">

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', $userForm->name . ' - Phần mềm thu thập thông tin học sinh đầu khoá')
+@section('title', $userForm->name . ' - Phần Mềm Thu Thập Thông Tin Trong Trường Học')
 
 @section('content_header')
     <div class="row">
@@ -37,7 +37,6 @@
             @endforeach
         </ul>
     <x-slot name="footerSlot">
-        <a href="{{ route('download_student_item', $userStudentForm->id) }}" class="mr-auto" theme="success">Xuất Word</a>
         <x-adminlte-button theme="danger" label="Đóng" data-dismiss="modal"/>
     </x-slot>
     </x-adminlte-modal>
