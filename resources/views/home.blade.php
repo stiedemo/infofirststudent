@@ -8,7 +8,9 @@
     <div class="row">
         <div class="col-md-8"><h1>Trang Chủ - Phần Mềm Thu Thập Thông Tin Trong Trường Học</h1></div>
         <div class="col-md-4 text-right">
+            @if(Auth::user()->id == 1)
             <a href="{{ route('create') }}" class="btn btn-info"><i class="fa fa-plus"></i> Tạo mới biểu mẫu</a>
+            @endif
         </div>
     </div>
 @stop

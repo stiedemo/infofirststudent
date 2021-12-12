@@ -141,11 +141,13 @@ class HomeController extends Controller
 
     public function create()
     {
+        if(Auth::user()->id !== 1) return redirect()->route('home');
         return view('create');
     }
 
     public function actionCreate(Request $request)
     {
+        if(Auth::user()->id !== 1) return redirect()->route('home');
         $request->validate([
             'name' => 'required'
         ]);
