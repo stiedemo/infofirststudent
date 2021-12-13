@@ -43,14 +43,14 @@
                                 <select class="form-select {{ $errors->has($nameInputStudent) ? 'is-invalid' : '' }}" name="{{ $nameInputStudent }}">
                                     <option value="">Lựa chọn {{ $userConfigForm->name }}</option>
                                     @foreach (json_decode($userConfigForm->config_content, true) as $index => $config_content)
-                                    <option {{ old($nameInputStudent) && old($nameInputStudent) == $config_content ? "selected" : "" }} value="{{ $config_content }}">{{ $config_content }}</option>
+                                    <option {{ old($nameInputStudent) && old($nameInputStudent) == $config_content ? "selected" : "" }} {{ $userConfigForm->default == $config_content ? "selected" : "" }} value="{{ $config_content }}">{{ $config_content }}</option>
                                     @endforeach
                                 </select>
                                 @endif
                                 @if($userConfigForm->type == "radio")
                                 @foreach (json_decode($userConfigForm->config_content, true) as $index => $config_content)
                                 <div class="form-check form-check-inline">
-                                    <input {{ old($nameInputStudent) && old($nameInputStudent) == $config_content ? "checked" : "" }} class="form-check-input {{ $errors->has($nameInputStudent) ? 'is-invalid' : '' }}" type="radio" name="{{ $nameInputStudent }}" id="inputStudent{{ $userConfigForm->id }}_{{$index}}" value="{{ $config_content }}">
+                                    <input {{ $userConfigForm->default == $config_content ? "checked" : "" }} {{ old($nameInputStudent) && old($nameInputStudent) == $config_content ? "checked" : "" }} class="form-check-input {{ $errors->has($nameInputStudent) ? 'is-invalid' : '' }}" type="radio" name="{{ $nameInputStudent }}" id="inputStudent{{ $userConfigForm->id }}_{{$index}}" value="{{ $config_content }}">
                                     <label class="form-check-label" for="inputStudent{{ $userConfigForm->id }}_{{$index}}">{{ $config_content }}</label>
                                 </div>
                                 @endforeach
